@@ -10,6 +10,7 @@ Welcome to api-user-guide's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   pages/overview
 
 
 Indices and tables

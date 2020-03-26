@@ -245,8 +245,9 @@ specified in the inputs section will be staged to the execution system prior to
 running.
 
 **Parameters:** This section describes important information, typically command
-line options, for running the app. The above app requires only one parameter -
-a URL pointing to an image for the classifier.
+line options, for running the app. The above app requires two parameters - a URL
+pointing to an image for the classifier, and the number of predictions that it
+should return.
 
 **Outputs:** The above app does not define any outputs. This section may be used
 to specify expected output file or folder names, counts, and ontologies. While

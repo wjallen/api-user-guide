@@ -10,22 +10,22 @@ a tenant, and finally enter a username and password for that tenant.
 .. code-block:: text
 
    $ tapis auth init
-   
+
    Use of Tapis requires acceptance of the TACC Acceptable Use Policy
    which can be found at https://portal.tacc.utexas.edu/tacc-usage-policy
-   
+
    Do you agree to abide by this AUP? (type 'y' or 'n' then Return) y
-   
+
    Use of Tapis requires acceptance of the Tapis Project Code of Conduct
    which can be found at https://tapis-project.org/code-conduct
-   
+
    Do you agree to abide by this CoC? (type 'y' or 'n' then Return) y
-   
+
    To improve our ability to support Tapis and the Tapis CLI, we would like to
    collect your IP address, operating system and Python version. No personally-
    identifiable information will be collected. This data will only be shared in
    aggregate form with funders and Tapis platform stakeholders.
-   
+
    Do you consent to this reporting? [Y/n]: Y
    +---------------+--------------------------------------+----------------------------------------+
    |      Name     |             Description              |                  URL                   |
@@ -43,9 +43,10 @@ a tenant, and finally enter a username and password for that tenant.
    |   tacc.prod   |                 TACC                 |      https://api.tacc.utexas.edu/      |
    | vdjserver.org |              VDJ Server              | https://vdj-agave-api.tacc.utexas.edu/ |
    +---------------+--------------------------------------+----------------------------------------+
-   Enter a tenant name [tacc.prod]: 
+   Enter a tenant name [tacc.prod]:
    tacc.prod username: user
    tacc.prod password for user:
 
 
-Session tokens and other metadata are stored in :code:`~/.agave/config.json`.
+Session tokens and other metadata are stored in ``~/.agave/config.json`` as well
+as in ``~/.env``.

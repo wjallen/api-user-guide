@@ -295,10 +295,12 @@ with Tapis using the following command:
    +----------------------+--------------------------------------+
 
 
-Finally, confirm that the system exists by searching for it:
+Finally, confirm that the system exists by searching for it then listing the
+available queues:
 
 .. code-block:: bash
 
+   # Search for your private systems
    $ tapis systems search --public eq false
    +----------------------------------+----------------------------------------+--------+-----------+
    | id                               | name                                   | status | type      |
@@ -306,6 +308,19 @@ Finally, confirm that the system exists by searching for it:
    | tacc.stampede2.wallen            | Execution system for TACC Stampede2    | UP     | EXECUTION |
    | tacc.work.wallen                 | Storage system for TACC work directory | UP     | STORAGE   |
    +----------------------------------+----------------------------------------+--------+-----------+
+
+   # List queues on the execution system
+   $ tapis systems queues list -f json tacc.stampede2.wallen
+   [
+     {
+       "name": "normal",
+       "description": null,
+       "default": true,
+       "maxUserJobs": -1,
+       "maxRequestedTime": "48:00:00"
+     }
+   ]
+
 
 
 Additional Help

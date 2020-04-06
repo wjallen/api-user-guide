@@ -29,6 +29,5 @@ following sub-pages will go through the process:
    app-building/set_up_the_environment
    app-building/initialize_the_app_directory
    app-building/containerize_the_executable
-   app-building/deploy_the_app
-   app-building/submit_a_test_job
+   app-building/deploy_and_test_the_app
    app-building/best_practices_and_next_steps

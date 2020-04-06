@@ -179,7 +179,7 @@ to expect one input fastq file as shown below:
      "checkpointable": false,
      "name": "{{ app.name }}",
      "executionSystem": "{{ app.execution_system }}",
-     "executionType": "BATCH",
+     "executionType": "HPC",
      "deploymentPath": "{{ username }}/apps/{{ app.name }}-{{ app.version }}",
      "deploymentSystem": "{{ app.deployment_system }}",
      "helpURI": "",
@@ -200,7 +200,7 @@ to expect one input fastq file as shown below:
        {
          "id": "fastq",
          "value": {
-           "default": "agave://data-sd2e-community/sample/sailfish/test/read1.fastq",
+           "default": "agave://tacc.work.wallen/public/SP1.fq",
            "visible": true,
            "required": true
          },
@@ -248,7 +248,7 @@ this time is to add the expect input:
      "appId": "{{ app.name }}-{{ app.version}}",
      "archive": false,
      "inputs": {
-       "fastq": "agave://data-sd2e-community/sample/sailfish/test/read1.fastq"
+       "fastq": "agave://tacc.work.wallen/public/SP1.fq"
      },
      "parameters": {}
    }

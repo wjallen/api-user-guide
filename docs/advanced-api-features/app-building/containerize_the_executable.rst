@@ -6,7 +6,7 @@ source, consider using that rather than building your own. You may find existing
 images on hubs such as
 `Docker Hub <https://hub.docker.com/>`_
 or
-`BioContaienrs <https://biocontainers.pro/registry/>`_.
+`BioContainers <https://biocontainers.pro/registry/>`_.
 
 This tutorial is a quick and dirty summary of how to build your own Docker image
 as if there is not one available for your executable. This is not meant to
@@ -135,7 +135,7 @@ directory, ``~/fastqc-app/Dockerfile``:
 
 .. code-block:: text
 
-   FROM sd2e/base:ubuntu17
+   FROM tacc/tacc-ubuntu18-mvapich2.3-psm2
 
    RUN apt-get update \
        && apt-get upgrade -y \
@@ -144,8 +144,8 @@ directory, ``~/fastqc-app/Dockerfile``:
        && apt-get install default-jre -y
 
    RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip \
-       && unzip fastqc_v0.11.7.zip \
-       && rm fastqc_v0.11.7.zip \
+       && unzip fastqc_v0.11.9.zip \
+       && rm fastqc_v0.11.9.zip \
        && chmod +x FastQC/fastqc
 
    ENV PATH "/FastQC/:$PATH"

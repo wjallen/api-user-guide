@@ -150,7 +150,7 @@ Then, submit the test job:
    +--------+------------------------------------------+
    | Field  | Value                                    |
    +--------+------------------------------------------+
-   | id     | 0946cc05-f076-4f71-8ef5-3aff0fdf4c71-007 |
+   | id     | 84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007 |
    | name   | fastqc_app-job-1586180806899             |
    | status | ACCEPTED                                 |
    +--------+------------------------------------------+
@@ -160,11 +160,68 @@ Finally, when the job status is **FINISHED**, inspect and retrieve the output:
 
 .. code-block:: bash
 
-   $ tapis jobs history f0d48348-aea8-46e6-92a8-f18baa33bdea-007
+   $ tapis jobs history 84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007
+   +-------------------+----------------+------------------------------------------------------------------------------+
+   | status            | created        | description                                                                  |
+   +-------------------+----------------+------------------------------------------------------------------------------+
+   | PENDING           | 20 minutes ago | Job processing beginning                                                     |
+   | PROCESSING_INPUTS | 20 minutes ago | Identifying input files for staging                                          |
+   | STAGING_INPUTS    | 20 minutes ago | Transferring job input data to execution system                              |
+   | STAGING_INPUTS    | 20 minutes ago | Job input copy in progress: agave://tacc.work.wallen/public/SP1.fq to        |
+   |                   |                | agave://tacc.stampede2.wallen//scratch/03439/wallen/wallen/job-84c0e8df-     |
+   |                   |                | df66-4dc5-82bb-2615e6d8f62f-007-fastqc_app-job-1586180806899/SP1.fq          |
+   | STAGED            | 20 minutes ago | Job inputs staged to execution system                                        |
+   | STAGING_JOB       | 20 minutes ago | Staging runtime assets to execution system                                   |
+   | STAGING_JOB       | 20 minutes ago | Fetching application assets from                                             |
+   |                   |                | agave://tacc.work.wallen/wallen/apps/fastqc_app-0.11.9                       |
+   | STAGING_JOB       | 20 minutes ago | Staging runtime assets to                                                    |
+   |                   |                | agave://tacc.stampede2.wallen//scratch/03439/wallen/wallen/job-84c0e8df-     |
+   |                   |                | df66-4dc5-82bb-2615e6d8f62f-007-fastqc_app-job-1586180806899                 |
+   | SUBMITTING        | 20 minutes ago | Submitting job to execution system                                           |
+   | QUEUED            | 20 minutes ago | Job queued to execution system queue                                         |
+   | RUNNING           | 16 minutes ago | Job running on execution system                                              |
+   | CLEANING_UP       | 16 minutes ago | Job completed execution                                                      |
+   | FINISHED          | 16 minutes ago | Job completed successfully                                                   |
+   +-------------------+----------------+------------------------------------------------------------------------------+
 
-   $ tapis jobs outputs list f0d48348-aea8-46e6-92a8-f18baa33bdea-007
+   $ tapis jobs outputs list 84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007
+   +---------------------------------------------------------------------------+----------------+--------+
+   | name                                                                      | lastModified   | length |
+   +---------------------------------------------------------------------------+----------------+--------+
+   | SP1.fq                                                                    | 21 minutes ago |  22471 |
+   | SP1_fastqc.html                                                           | 17 minutes ago | 561766 |
+   | SP1_fastqc.zip                                                            | 17 minutes ago | 420233 |
+   | container_exec.log                                                        | 17 minutes ago |  19156 |
+   | fastqc_app-job-1586180806899-84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007.err | 17 minutes ago |    372 |
+   | fastqc_app-job-1586180806899-84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007.out | 17 minutes ago |     29 |
+   | fastqc_app-job-1586180806899.ipcexe                                       | 21 minutes ago |   2727 |
+   | lib                                                                       | 21 minutes ago |   4096 |
+   | runner.sh                                                                 | 21 minutes ago |    881 |
+   | tester.sh                                                                 | 21 minutes ago |     44 |
+   +---------------------------------------------------------------------------+----------------+--------+
 
-   $ tapis jobs outputs download --progress f0d48348-aea8-46e6-92a8-f18baa33bdea-007
+   $ tapis jobs outputs downloWalking remote resource...
+   Found 11 file(s) in 5s
+   Downloading container_exec.log...
+   Downloading fastqc_app-job-1586180806899-84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007.err...
+   Downloading fastqc_app-job-1586180806899-84c0e8df-df66-4dc5-82bb-2615e6d8f62f-007.out...
+   Downloading fastqc_app-job-1586180806899.ipcexe...
+   Downloading container_exec.sh...
+   Downloading VERSION...
+   Downloading runner.sh...
+   Downloading SP1.fq...
+   Downloading SP1_fastqc.html...
+   Downloading SP1_fastqc.zip...
+   Downloading tester.sh...
+   Downloaded 11 files in 46s
+   +-------------+-------+
+   | Field       | Value |
+   +-------------+-------+
+   | downloaded  | 11    |
+   | skipped     | 0     |
+   | messages    | 0     |
+   | elapsed_sec | 51    |
+   +-------------+-------+
 
 
-If the file ``SP1.fq.html`` exists, then the run was successful.
+If the file ``SP1_fastq.html`` exists, then the run was successful.

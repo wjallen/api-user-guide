@@ -44,8 +44,8 @@ a tenant, and finally enter a username and password for that tenant.
    | vdjserver.org |              VDJ Server              | https://vdj-agave-api.tacc.utexas.edu/ |
    +---------------+--------------------------------------+----------------------------------------+
    Enter a tenant name [tacc.prod]:
-   tacc.prod username: user
-   tacc.prod password for user:
+   tacc.prod username: username
+   tacc.prod password for username:
 
 
 Session tokens and other metadata are stored in ``~/.agave/config.json`` as well

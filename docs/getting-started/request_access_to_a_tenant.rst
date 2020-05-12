@@ -1,12 +1,12 @@
 Request Access to a Tenant
 ==========================
 
-Each tenant has its own criteria for admitting access. By default, everyone can
+Each tenant has its own criteria for admitting access. By default, anyone can
 get access to the **tacc.prod** tenant by creating a
 `TACC Account <https://portal.tacc.utexas.edu/account-request>`_.
 
-Please visit the following pages to see if you qualify for access to other
-tenants:
+Please visit the following pages to apply for access to other tenants as
+appropriate:
 
 +--------------------------------------+----------------------------------------+
 |             Name                     |                  URL                   |
@@ -17,17 +17,17 @@ tenants:
 +--------------------------------------+----------------------------------------+
 |               Araport                |        https://www.araport.org/        |
 +--------------------------------------+----------------------------------------+
-|              DesignSafe              |    https://www.designsafe-ci.org/      |
-+--------------------------------------+----------------------------------------+
 |         CyVerse Science APIs         |   https://cyverse.org/Science-APIs     |
 +--------------------------------------+----------------------------------------+
-|            UTRC Portal               |  https://utrc.tacc.utexas.edu/         |
-+--------------------------------------+----------------------------------------+
-|             SD2E                     |         https://sd2e.org/              |
+|              DesignSafe              |    https://www.designsafe-ci.org/      |
 +--------------------------------------+----------------------------------------+
 | Science Gateways Community Institute |        https://sciencegateways.org/    |
 +--------------------------------------+----------------------------------------+
-|                 TACC                 |      https://portal.tacc.utexas.edu    |
+|             SD2E                     |         https://sd2e.org/              |
++--------------------------------------+----------------------------------------+
+|                 TACC Prod            |      https://portal.tacc.utexas.edu    |
++--------------------------------------+----------------------------------------+
+|            UTRC Portal               |  https://utrc.tacc.utexas.edu/         |
 +--------------------------------------+----------------------------------------+
 |              VDJ Server              | https://vdjserver.org/                 |
 +--------------------------------------+----------------------------------------+

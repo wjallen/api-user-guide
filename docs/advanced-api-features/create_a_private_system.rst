@@ -12,7 +12,7 @@ Gather Relevant Information
 
 To register any system in Tapis, you need the hostname and login credentials.
 The preferred login credentials are username and SSH key pairs. Storage systems
-(for managing files) require a default path where you have write access.
+(for storing files) require a default path where you have write access.
 Execution systems (for running jobs) also require a default path where job
 runtime files will be staged and the job will be executed. If it is an 'HPC'
 type execution system, then you also need information about the queueing system
@@ -24,9 +24,9 @@ directory (via Stampede2):
 .. code-block:: bash
 
     hostname: stampede2.tacc.utexas.edu
-    username: wallen
+    username: taccuser
     credentials: <ssh keys>
-    storage path: /work/03439/wallen
+    storage path: /work/01234/taccuser
 
 
 And we will set up an execution system for the Stampede2 HPC cluster:
@@ -34,10 +34,10 @@ And we will set up an execution system for the Stampede2 HPC cluster:
 .. code-block:: bash
 
    hostname: stampede2.tacc.utexas.edu
-   username: wallen
+   username: taccuser
    credentials: <ssh keys preferred>
-   storage path: /work/03439/wallen
-   job runtime path: /scratch/03439/wallen
+   storage path: /work/01234/taccuser
+   job runtime path: /scratch/01234/taccuser
    queue_type: SLURM
    queue: normal (limits in Stampede2 user guide)
 
@@ -53,24 +53,24 @@ Register a Storage System
 -------------------------
 
 To register a system, you need to assemble a json description of the above
-requirements and some other metadata. Start by saving the following storage
-system template in a file called ``tacc.work.wallen.json``:
+requirements and some additional metadata. Start by saving the following storage
+system template in a file called ``tacc.work.taccuser.json``:
 
 .. code-block:: json
 
    {
-     "id": "tacc.work.wallen",
-     "name": "Storage system for TACC work directory",
-     "description": "Storage system for TACC work directory via Stampede2",
+     "id": "tacc.work.taccuser",
+     "name": "Storage system for the TACC WORK directory",
+     "description": "Storage system for the TACC WORK directory via Stampede2",
      "type": "STORAGE",
      "storage": {
        "host": "stampede2.tacc.utexas.edu",
        "port": 22,
        "protocol": "SFTP",
-       "rootDir": "/work/03439/wallen",
+       "rootDir": "/work/01234/taccuser",
        "homeDir": "/",
        "auth":{
-         "username":"wallen",
+         "username":"taccuser",
          "publicKey": " <enter public key here> ",
          "privateKey": " <enter private key here> ",
          "type": "SSHKEYS"
@@ -94,17 +94,18 @@ important options:
 
 
 Edit the username and paths in the above template to match your username and
-work folder. A copy of your public key should be added to the authorized_keys
-files on the remote host. The public and private key should be pasted on one
-line each (wrapping around) similar to the following:
+work folder. A copy of your public key should be added to the
+:code:`~/.ssh/authorized_keys` file on the remote host. The public and private
+key should be pasted on one line each similar to the following. Replace the
+line breaks in the private key with the newline character :code:`\n`:
 
 .. code-block:: json
 
    {
      "auth":{
-       "username": "username",
-       "publicKey": "ssh-rsa AAAAB3NzaC1yc2EBBAADAQABMQRgQChJ6bzejqSuJdTi+VwMif8qouSSlYwrVt0EWVduKZHpzOnS1zlknAyYXmQQFcaJ+vNAQayVMTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7F0qNFiH9m+OZJDYdIWS1rlN1oK32jHUi0xV8kM3KOLf2TIjDBUyZRpMGyQ= user@email.com",
-       "privateKey": "-----BEGIN RSA PRIVATE KEY-----nMIVCXAIBAAKBgQRhJ6bzejqSuJdTi+VwMif8qoyuSSlYwrVt0EWVdkFvA+wmxlOcnLMJOYotSyu0JqY/TeW6reNBMkTkVU8FgXJ2k+4agNrphxKCWmQbC4Xm+CW5N6HiIBZo/TxzDaAmsNGklmVfZGO+8cCDqdKIlF0hqxytI8GgtiHImg2j+nwcIQT3ojER45I+6hYLj95HnSyyC7rEtjIBCvW8FVmT7JCDnS0BwAkmnRt0NPzrliEk1k+swkCTp3SOHSk4SsJPuLcC7OW6pkjD6AyHV4ZrYy0US/Z+Zmn01Lhgw0sNjQL8PyJuVeFysp9Sr40c77OYbVGbOAJGKGtYsD6x3 0Cvz+vqQ0VpQPCOiMf2tytglUNBkiEVThkm+Nl36yxRmcGCLEh9EGTWNuD++ZT+nka6MvIN2NSsXJD32sw15g4A0bmzSXnbfFg8TBAjGTDW7l0P8prFrtQ8Wml14390b29l1ptAyE=n-----END RSA PRIVATE KEY-----",
+       "username": "taccuser",
+       "publicKey": "ssh-rsa AAAAB3NzaC1yc2EBBAADAQABMQRgQqSuJdTi+VwMif8qouSSEWVduKZHpzOnS1zlknAyYXmQQFcaJ+vNAQayVMTqv+A+1lzxppTdgZ0Dn42EOYWRa6B/IEMPzDuKb7F0qNFiH9m+OZJDYdIWS1rlN1oK32jHUi0xV8kM3KOLf2TIjDBUyZRpMGyQ= user@email.com",
+       "privateKey": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA1Jhi5BNiogg3NtALJepyTz5xS3j/dpYBGf5ERBH0C\n4SCb9VAxOCyb4l+QDrOQnLRX2RV4JjHlw7r8qmc6IvPmk83oTYqYN2NuzMjxI\nsqjVfmJgnF4sPuQy+Pioie9UeekAJRfaJLChZxLfyfppUVNTOOg6rVkERV/n9IDr\nTY2r/B16XtzcjGYvhW35Avy2FlTHvJldwaxmY4UuNey7r9LXAved4nqTj7d\n5PVKgWB8Bu6h5U1EGgnPhFFi8MJCO4/bByqAYdEffC9Y+cWBFq749XNPafid\nDlKFza44RR5Fg86OZxJW7NGoMnIjVYRIcUQIDAQABAoIBAQCovogIBscMW6R/\nfTwM/h3OlUu9EdlVOfygwkq5GfdbPBco291UOmDwN08aryTR8JtVLPO5ZtevX\nTVXVpWtejdLr5aL/R/uYxhxaIoeI7ppQBk3daSNsZia2lRp1j4qil\nyKfy5WxHdzjAhg3gamYtTk981qJIOSR0kQxxz3ax23BN5C/r1uqHK1hFUlCgx\nRrjt2M2/TvFtGZdRmxH4Kdco7IeOtj0xAYS/hGBV4CRa+4zWb3ikNOVxcFL61\nuT/60043DsVI22B5zv3XODtfSjquqlYl5eHZdf+HdL6u91CKrjmvpg80OfQ\ngmPwhOjdAoGBAOtRhXta/Y8X1U+XykaXfVFsfzFsslMtI73XII+nKYdtDFlSl\nLYg6PB5Gk9Q++RdinHzL7DwAXOVWW2nwfoEKxjsYCw4ihYVO/UEG\nqqCeu0X/r9N6u78HfeZEX5XH3+QtR/d9bP2mLjhY8LTAoGBAOdH\nnHnrMpeiEzou+5UC3lKRUN84LX/o9kp6t6WSF5oT7tQEyJKVICgLBOMVbASvXZxncYziYJKIzrqDkC+QXdZpF0x/u04vryDz9ySl9rhBYaD74e+FFXkDImMAQ\nCL1InIelCmXcWsORJd+5yCGOSS3TL2lA+1YXLAoGf47hMm/uT0HvzVhDq7\nD+764ZgRHjN8tpn9N0hz/Gj0zaw+9lOXEXG1DnlGzo016sAOc+2tFZx\n3j8w9cZQJ0zTE2u7Lz8CL9yKXicsOgFhdeyrF4AwtJ2CLtZF383wim2QFi4/Ypkl\nL4lsYnJYnJjQCKgA6bROu0+rA1TUvCzXHbgH7t6eYRcZeKnJNZ+m3PhBs+8W\nov4nLLTz8Q7GN8g6T1//QojS8y   ZR9GAr0Z0BbtW8om+fVehPFAMm8x6tS4sTFl0\nUp+i0r4VF7PnvfSIC+AHJUe+a4XPmmphVsnxEpsS+tQ2yUh7Akmt\np8WOECgYAJuaT+FBqIWhvmaymOjUFfQug67+lv7w3qzzWQAq8DyTweFNJ4E\nIbE1RnT86V2xhPr3YgjmRyyONlb/Xr8fZrz8KpmSehT99a+QY6gkIoWrfQ5xS7g6\nI/GDX2x54eANWX0xXKMQXfTU+WN6s5WPl/BL+/Cj43Hfg==\n-----END RSA PRIVATE KEY-----",
        "type": "SSHKEYS"
      }
    }
@@ -119,29 +120,29 @@ future. To register this system with Tapis, use the following command:
 
 .. code-block:: bash
 
-   $ tapis systems create -F tacc.work.wallen.json
+   $ tapis systems create -F tacc.work.taccuser.json
    +----------------------+------------------------------------------------------+
    | Field                | Value                                                |
    +----------------------+------------------------------------------------------+
-   | available            | True                                                 |
+   | id                   | tacc.work.taccuser                                   |
+   | name                 | Storage system for TACC work directory               |
+   | type                 | STORAGE                                              |
    | default              | False                                                |
+   | available            | True                                                 |
    | description          | Storage system for TACC work directory via Stampede2 |
    | executionType        | None                                                 |
    | globalDefault        | False                                                |
-   | id                   | tacc.work.wallen                                     |
    | lastModified         | just now                                             |
    | maxSystemJobs        | None                                                 |
    | maxSystemJobsPerUser | None                                                 |
-   | name                 | Storage system for TACC work directory               |
-   | owner                | wallen                                               |
+   | owner                | taccuser                                             |
    | public               | False                                                |
    | revision             | 1                                                    |
    | scheduler            | None                                                 |
    | scratchDir           | None                                                 |
    | site                 | None                                                 |
    | status               | UP                                                   |
-   | type                 | STORAGE                                              |
-   | uuid                 | 7043710487649971734-242ac113-0001-006                |
+   | uuid                 | 383424038079107562-242ac112-0001-006                 |
    | workDir              | None                                                 |
    +----------------------+------------------------------------------------------+
 
@@ -152,41 +153,22 @@ in the root directory:
 
 .. code-block:: bash
 
-   $ tapis systems search --id eq tacc.work.wallen
-   +------------------+----------------------------------------+--------+---------+
-   | id               | name                                   | status | type    |
-   +------------------+----------------------------------------+--------+---------+
-   | tacc.work.wallen | Storage system for TACC work directory | UP     | STORAGE |
-   +------------------+----------------------------------------+--------+---------+
+   $ tapis systems search --id eq tacc.work.taccuser
+   +--------------------+----------------------------------------+---------+---------+
+   | id                 | name                                   | type    | default |
+   +--------------------+----------------------------------------+---------+---------+
+   | tacc.work.taccuser | Storage system for TACC work directory | STORAGE | False   |
+   +--------------------+----------------------------------------+---------+---------+
 
-   $ tapis files list agave://tacc.work.wallen/
-   +-------------------+--------------+--------+
-   | name              | lastModified | length |
-   +-------------------+--------------+--------+
-   | archive           | 5 months ago |   4096 |
-   | class-software    | 2 months ago |   4096 |
-   | corral            | 2 weeks ago  |     13 |
-   | cyverse           | a year ago   |   4096 |
-   | files             | 2 months ago |  12288 |
-   | frontera          | 2 months ago |   4096 |
-   | hikari            | 3 years ago  |   4096 |
-   | jetstream         | 2 years ago  |   4096 |
-   | jobs              | 6 months ago |   4096 |
-   | jupyter           | 4 months ago |   4096 |
-   | lonestar          | 5 months ago |   4096 |
-   | maverick          | a year ago   |   4096 |
-   | maverick2         | 3 weeks ago  |   4096 |
-   | public            | 3 days ago   |   4096 |
-   | rpmbuild          | a year ago   |   4096 |
-   | sd2e              | 8 months ago |   4096 |
-   | share-files       | 3 months ago |   4096 |
-   | singularity_cache | a month ago  |   4096 |
-   | stampede          | 3 years ago  |   4096 |
-   | stampede2         | 3 weeks ago  |   4096 |
-   | test_folder       | 2 days ago   |   4096 |
-   | wallen            | 2 months ago |   4096 |
-   | wrangler          | 2 months ago |   4096 |
-   +-------------------+--------------+--------+
+   $ tapis files list agave://tacc.work.taccuser/
+   +-----------+--------------+--------+
+   | name      | lastModified | length |
+   +-----------+--------------+--------+
+   | jobs      | 2 years ago  |   4096 |
+   | maverick  | 2 years ago  |   4096 |
+   | stampede2 | 2 years ago  |   4096 |
+   | wrangler  | 2 years ago  |   4096 |
+   +-----------+--------------+--------+
 
 
 Register an Execution System
@@ -194,26 +176,26 @@ Register an Execution System
 
 An execution system contains many of the same fields as a storage system, but it
 is a bit more involved. Save the following template for a Stampede2 execution
-system into a file called ``tacc.stampede2.wallen``:
+system into a file called ``tacc.stampede2.taccuser``:
 
 
 .. code-block:: json
 
    {
-     "id": "tacc.stampede2.wallen",
+     "id": "tacc.stampede2.taccuser",
      "name": "Execution system for TACC Stampede2",
      "description": "Execution system for TACC Stampede2",
      "type": "EXECUTION",
      "executionType": "HPC",
      "scheduler": "SLURM",
      "maxSystemJobsPerUser": 50,
-     "scratchDir": "/scratch/03439/wallen",
+     "scratchDir": "/scratch/01234/taccuser",
      "login": {
        "host": "stampede2.tacc.utexas.edu",
        "port": 22,
        "protocol": "SSH",
        "auth": {
-         "username": "wallen",
+         "username": "taccuser",
          "publicKey": " <enter public key here> ",
          "privateKey": " <enter private key here> ",
          "type": "SSHKEYS"
@@ -224,9 +206,9 @@ system into a file called ``tacc.stampede2.wallen``:
        "port": 22,
        "protocol": "SFTP",
        "rootDir": "/",
-       "homeDir": "/work/03439/wallen",
+       "homeDir": "/work/01234/taccuser",
        "auth": {
-         "username": "wallen",
+         "username": "taccuser",
          "publicKey": " <enter public key here> ",
          "privateKey": " <enter private key here> ",
          "type": "SSHKEYS"
@@ -263,36 +245,36 @@ name of an allocation you have access to on Stampede2. And finally, as before,
 make sure to change the username and paths to match your account on the HPC
 system.
 
-Once the appropiate changes have been made to the json file, register the system
-with Tapis using the following command:
+Once the appropriate changes have been made to the json file, register the
+system with Tapis using the following command:
 
 .. code-block:: bash
 
-   $ tapis systems create -F tacc.stampede2.wallen.json
-   +----------------------+--------------------------------------+
-   | Field                | Value                                |
-   +----------------------+--------------------------------------+
-   | available            | True                                 |
-   | default              | False                                |
-   | description          | Execution system for TACC Stampede2  |
-   | executionType        | HPC                                  |
-   | globalDefault        | False                                |
-   | id                   | tacc.stampede2.wallen                |
-   | lastModified         | just now                             |
-   | maxSystemJobs        | 2147483647                           |
-   | maxSystemJobsPerUser | 50                                   |
-   | name                 | Execution system for TACC Stampede2  |
-   | owner                | wallen                               |
-   | public               | False                                |
-   | revision             | 1                                    |
-   | scheduler            | SLURM                                |
-   | scratchDir           | /scratch/03439/wallen/               |
-   | site                 | None                                 |
-   | status               | UP                                   |
-   | type                 | EXECUTION                            |
-   | uuid                 | 807903008371577322-242ac113-0001-006 |
-   | workDir              |                                      |
-   +----------------------+--------------------------------------+
+   $ tapis systems create -F tacc.stampede2.taccuser.json
+   +----------------------+---------------------------------------+
+   | Field                | Value                                 |
+   +----------------------+---------------------------------------+
+   | id                   | tacc.stampede2.taccuser               |
+   | name                 | Execution system for TACC Stampede2   |
+   | type                 | EXECUTION                             |
+   | default              | False                                 |
+   | available            | True                                  |
+   | description          | Execution system for TACC Stampede2   |
+   | executionType        | HPC                                   |
+   | globalDefault        | False                                 |
+   | lastModified         | just now                              |
+   | maxSystemJobs        | 2147483647                            |
+   | maxSystemJobsPerUser | 50                                    |
+   | owner                | taccuser                              |
+   | public               | False                                 |
+   | revision             | 1                                     |
+   | scheduler            | SLURM                                 |
+   | scratchDir           | /scratch/01234/taccuser/              |
+   | site                 | None                                  |
+   | status               | UP                                    |
+   | uuid                 | 4903282542648684054-242ac112-0001-006 |
+   | workDir              |                                       |
+   +----------------------+---------------------------------------+
 
 
 Finally, confirm that the system exists by searching for it then listing the
@@ -302,15 +284,15 @@ available queues:
 
    # Search for your private systems
    $ tapis systems search --public eq false
-   +----------------------------------+----------------------------------------+--------+-----------+
-   | id                               | name                                   | status | type      |
-   +----------------------------------+----------------------------------------+--------+-----------+
-   | tacc.stampede2.wallen            | Execution system for TACC Stampede2    | UP     | EXECUTION |
-   | tacc.work.wallen                 | Storage system for TACC work directory | UP     | STORAGE   |
-   +----------------------------------+----------------------------------------+--------+-----------+
+   +-------------------------+----------------------------------------+-----------+---------+
+   | id                      | name                                   | type      | default |
+   +-------------------------+----------------------------------------+-----------+---------+
+   | tacc.stampede2.taccuser | Execution system for TACC Stampede2    | EXECUTION | False   |
+   | tacc.work.taccuser      | Storage system for TACC work directory | STORAGE   | False   |
+   +-------------------------+----------------------------------------+-----------+---------+
 
    # List queues on the execution system
-   $ tapis systems queues list -f json tacc.stampede2.wallen
+   $ tapis systems queues list -f json tacc.stampede2.taccuser
    [
      {
        "name": "normal",
@@ -329,4 +311,4 @@ Additional Help
 Further information about creating storage and execution systems, including full
 descriptions of the parameters above as well as other optional parameters, can
 be found in the
-`Tapis Documentation <https://tacc-cloud.readthedocs.io/en/latest/>`_
+`Tapis platform documentation <https://tacc-cloud.readthedocs.io/en/latest/>`_

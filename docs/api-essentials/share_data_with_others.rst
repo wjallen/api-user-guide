@@ -18,16 +18,16 @@ View your own user profile by issuing:
 .. code-block:: bash
 
    $ tapis profiles show self
-   +--------------+------------------------+
-   | Field        | Value                  |
-   +--------------+------------------------+
-   | first_name   | William                |
-   | last_name    | Allen                  |
-   | email        | wallen@tacc.utexas.edu |
-   | mobile_phone |                        |
-   | phone        |                        |
-   | username     | wallen                 |
-   +--------------+------------------------+
+   +--------------+--------------------+
+   | Field        | Value              |
+   +--------------+--------------------+
+   | first_name   | Tacc               |
+   | last_name    | User               |
+   | email        | taccuser@gmail.com |
+   | mobile_phone |                    |
+   | phone        |                    |
+   | username     | taccuser           |
+   +--------------+--------------------+
 
 
 Each of the fields stored in the user profile is queryable using the ``tapis
@@ -36,13 +36,13 @@ profiles search`` command. Some more common examples include:
 .. code-block:: bash
 
    # Search for another user by first name
-   $ tapis profiles search --first-name eq William
+   $ tapis profiles search --first-name eq John
 
    # Search for another user by last name
-   $ tapis profiles search --last-name eq Allen
+   $ tapis profiles search --last-name eq Doe
 
    # Search for another user by email address
-   $ tapis profiles search --email eq wallen@tacc.utexas.edu
+   $ tapis profiles search --email eq jdoe@utexas.edu
 
 
 Once you have identified the correct username, you can query it to make sure it
@@ -51,16 +51,16 @@ is the person you are looking for:
 .. code-block:: bash
 
    $ tapis profiles show jdoe
-   +--------------+----------------------+
-   | Field        | Value                |
-   +--------------+----------------------+
-   | first_name   | John                 |
-   | last_name    | Doe                  |
-   | email        | jdoe@tacc.utexas.edu |
-   | mobile_phone |                      |
-   | phone        |                      |
-   | username     | jdoe                 |
-   +--------------+----------------------+
+   +--------------+-----------------+
+   | Field        | Value           |
+   +--------------+-----------------+
+   | first_name   | John            |
+   | last_name    | Doe             |
+   | email        | jdoe@utexas.edu |
+   | mobile_phone |                 |
+   | phone        |                 |
+   | username     | jdoe            |
+   +--------------+-----------------+
 
 
 Share Files with Another User
@@ -71,12 +71,11 @@ permissions on an existing file on one of your storage systems, issue:
 
 .. code-block::bash
 
-   $ tapis files pems list agave://utrc-home.wallen/test_folder/local_file.txt
+   $ tapis files pems list agave://tacc.work.taccuser/test_folder/local_file.txt
    +----------+------+-------+---------+
    | username | read | write | execute |
    +----------+------+-------+---------+
-   | wallen   | True | True  | True    |
-   | wma_prtl | True | True  | True    |
+   | taccuser | True | True  | True    |
    +----------+------+-------+---------+
 
 To add permissions for another user (with username ``jdoe``) to read the file,
@@ -84,18 +83,17 @@ use the ``tapis files pems grant`` with the following positional arguments:
 
 .. code-block::bash
 
-   $ (tapis-cli-3.7.5) wallen-mbp19:tapis-cli wallen$ tapis files pems grant agave://utrc-home.wallen/test_folder/local_file.txt jfonner READ
+   $ tapis files pems grant agave://tacc.work.taccuser/test_folder/local_file.txt jdoe READ
    +----------+------+-------+---------+
    | username | read | write | execute |
    +----------+------+-------+---------+
-   | jfonner  | True | False | False   |
-   | wallen   | True | True  | True    |
-   | wma_prtl | True | True  | True    |
+   | jdoe     | True | False | False   |
+   | taccuser | True | True  | True    |
    +----------+------+-------+---------+
 
 .. warning::
 
-   Recursive permission changes are not implemented yet
+   Recursive permission changes are not yet implemented
 
 
 Now, a user with username ``jdoe`` has permissions to read the file. Valid
@@ -107,19 +105,18 @@ access to your storage system, perform:
 
 .. code-block:: bash
 
-   $ tapis systems roles list utrc-home.wallen
+   $ tapis systems roles list tacc.work.taccuser
    +----------+-------+
    | username | role  |
    +----------+-------+
-   | wma_prtl | OWNER |
-   | wallen   | OWNER |
+   | taccuser | OWNER |
    +----------+-------+
 
 To add your collaborator to your system use:
 
 .. code-block:: bash
 
-   $ tapis systems roles grant utrc-home.wallen jdoe GUEST
+   $ tapis systems roles grant tacc.work.taccuser jdoe GUEST
    +----------+---------+
    | Field    | Value   |
    +----------+---------+
@@ -127,13 +124,12 @@ To add your collaborator to your system use:
    | role     | GUEST   |
    +----------+---------+
 
-   $ tapis systems roles list utrc-home.wallen
+   $ tapis systems roles list tacc.work.taccuser
    +----------+-------+
    | username | role  |
    +----------+-------+
-   | wma_prtl | OWNER |
+   | taccuser | OWNER |
    | jdoe     | GUEST |
-   | wallen   | OWNER |
    +----------+-------+
 
 Now, a user with username ``jdoe`` can see files with the appropriate
@@ -146,7 +142,7 @@ you use to download the file:
 
 .. code-block:: bash
 
-   $ tapis files download agave://utrc-home.wallen/test_folder/local_file.txt
+   $ tapis files download agave://tacc.work.taccuser/test_folder/local_file.txt
 
 
 Revoke Permissions
@@ -158,20 +154,20 @@ shared file as well as the storage system:
 .. code-block:: bash
 
    # Revoke permissions on the shared file
-   $ tapis files pems revoke agave://utrc-home.wallen/test_folder/local_file.txt jdoe
+   $ tapis files pems revoke agave://tacc.work.taccuser/test_folder/local_file.txt jdoe
 
    # Revoke permissions on the private storage system
-   $ tapis systems roles revoke utrc-home.wallen jdoe
+   $ tapis systems roles revoke tacc.work.taccuser jdoe
 
 You can also blanket revoke permissions from all non-owner users:
 
 .. code-block:: bash
 
    # Revoke permissions on the shared file for all users
-   $ tapis files pems drop agave://utrc-home.wallen/test_folder/local_file.txt
+   $ tapis files pems drop agave://tacc.work.taccuser/test_folder/local_file.txt
 
    # Revoke permissions on the private storage system for all users
-   $ tapis systems roles drop utrc-home.wallen
+   $ tapis systems roles drop tacc.work.taccuser
 
 
 Share Files Using Postits
@@ -185,20 +181,20 @@ command line. To create a postit:
 
 .. code-block:: bash
 
-   $ tapis postits create -L 3600 -m 5 https://api.tacc.utexas.edu/files/v2/media/system/utrc-home.wallen/test_folder/file.txt
-   +---------------+-----------------------------------------------------------------------------------------+
-   | Field         | Value                                                                                   |
-   +---------------+-----------------------------------------------------------------------------------------+
-   | postit        | 843f372264d653ecea967f790ca90381                                                        |
-   | remainingUses | 5                                                                                       |
-   | expires       | 2020-03-25T15:06:56-05:00                                                               |
-   | url           | https://api.tacc.utexas.edu/files/v2/media/system/utrc-home.wallen/test_folder/file.txt |
-   | creator       | wallen                                                                                  |
-   | created       | 2020-03-25T14:06:56-05:00                                                               |
-   | noauth        | False                                                                                   |
-   | method        | GET                                                                                     |
-   | postit_url    | https://api.tacc.utexas.edu//postits/v2/843f372264d653ecea967f790ca90381                |
-   +---------------+-----------------------------------------------------------------------------------------+
+   $ tapis postits create -L 3600 -m 5 agave://tacc.work.taccuser/test_folder/file.txt
+   +---------------+-------------------------------------------------------------------------------------------------+
+   | Field         | Value                                                                                           |
+   +---------------+-------------------------------------------------------------------------------------------------+
+   | postit        | a88eed9c3bb7ae9f8dca6a8c1cc8c25f                                                                |
+   | remainingUses | 5                                                                                               |
+   | expires       | 2020-05-12T09:21:32-05:00                                                                       |
+   | url           | https://api.tacc.utexas.edu/files/v2/media/system/tacc.work.taccuser/test_folder/local_file.txt |
+   | creator       | taccuser                                                                                        |
+   | created       | 2020-05-12T08:21:32-05:00                                                                       |
+   | noauth        | False                                                                                           |
+   | method        | GET                                                                                             |
+   | postit_url    | https://api.tacc.utexas.edu//postits/v2/a88eed9c3bb7ae9f8dca6a8c1cc8c25f                        |
+   +---------------+-------------------------------------------------------------------------------------------------+
 
 
 The response from this command includes a URL which can be pasted into a web
@@ -206,7 +202,7 @@ browser or curled on the command line:
 
 .. code-block:: bash
 
-   https://api.tacc.utexas.edu//postits/v2/843f372264d653ecea967f790ca90381
+   https://api.tacc.utexas.edu//postits/v2/a88eed9c3bb7ae9f8dca6a8c1cc8c25f
 
 
 This postit will work for 5 downloads (``-m 5``) and only available for one hour
@@ -216,10 +212,10 @@ postits with the following commands:
 .. code-block:: bash
 
    $ tapis postits list
-   +----------------------------------+---------------+---------------------------+-----------------------------------------------------------------------------------------+
-   | postit                           | remainingUses | expires                   | url                                                                                     |
-   +----------------------------------+---------------+---------------------------+-----------------------------------------------------------------------------------------+
-   | 843f372264d653ecea967f790ca90381 |             5 | 2020-03-25T15:06:56-05:00 | https://api.tacc.utexas.edu/files/v2/media/system/utrc-home.wallen/test_folder/file.txt |
-   +----------------------------------+---------------+---------------------------+-----------------------------------------------------------------------------------------+
+   +----------------------------------+---------------+---------------------------+-------------------------------------------------------------------------------------------------+
+   | postit                           | remainingUses | expires                   | url                                                                                             |
+   +----------------------------------+---------------+---------------------------+-------------------------------------------------------------------------------------------------+
+   | a88eed9c3bb7ae9f8dca6a8c1cc8c25f |             4 | 2020-05-12T09:21:32-05:00 | https://api.tacc.utexas.edu/files/v2/media/system/tacc.work.taccuser/test_folder/local_file.txt |
+   +----------------------------------+---------------+---------------------------+-------------------------------------------------------------------------------------------------+
 
-   $ tapis postits delete 843f372264d653ecea967f790ca90381
+   $ tapis postits delete a88eed9c3bb7ae9f8dca6a8c1cc8c25f

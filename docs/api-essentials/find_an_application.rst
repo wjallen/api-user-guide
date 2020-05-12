@@ -14,31 +14,27 @@ The **tacc.prod** tenant has the following apps available:
 .. code-block:: bash
 
    $ tapis apps list
-   +-----------------------------------+-------------------------+
-   | id                                | label                   |
-   +-----------------------------------+-------------------------+
-   | tapis.app.imageclassify-1.0u3     | Image Classifier        |
-   | tapis.app.imageclassify-1.0u2     | Image Classifier        |
-   | tapis.app.imageclassify-1.0u1     | Image Classifier        |
-   | vina-ls5-1.1.2u3                  | Autodock Vina           |
-   | vina-ls5-1.1.2u2                  | Autodock Vina           |
-   | extract-0.1                       | Extract Compressed File |
-   | compress-0.1                      | Compress folder         |
-   | vina-ls5-1.1.2u1                  | Autodock Vina           |
-   | opensees-2.4.4-slurm-2.4.4.5804u1 | OpenSees                |
-   | opensees-fork-2.4.4.5804u2        | OpenSees                |
-   | opensees-2.4.4.5804u1             | OpenSees                |
-   | opensees-fork-2.4.4.5804u1        | OpenSees                |
-   | vina-lonestar-1.1.2               | Autodock Vina           |
-   | vina-lonestar-1.1.2u4             | Autodock Vina           |
-   | vina-lonestar-1.1.2u3             | Autodock Vina           |
-   | vina-lonestar-1.1.2u2             | Autodock Vina           |
-   | pdb2pdbqt-1.00u1                  | pdb2pdbqt               |
-   | pdb2pdbqt-1.00                    | pdb2pdbqt               |
-   +-----------------------------------+-------------------------+
+   +-----------------------------------+------------------+
+   | id                                | label            |
+   +-----------------------------------+------------------+
+   | tapis.app.imageclassify-1.0u3     | Image Classifier |
+   | tapis.app.imageclassify-1.0u2     | Image Classifier |
+   | tapis.app.imageclassify-1.0u1     | Image Classifier |
+   | vina-ls5-1.1.2u3                  | Autodock Vina    |
+   | vina-ls5-1.1.2u2                  | Autodock Vina    |
+   | vina-ls5-1.1.2u1                  | Autodock Vina    |
+   | opensees-2.4.4-slurm-2.4.4.5804u1 | OpenSees         |
+   | opensees-fork-2.4.4.5804u2        | OpenSees         |
+   | opensees-2.4.4.5804u1             | OpenSees         |
+   | opensees-fork-2.4.4.5804u1        | OpenSees         |
+   | vina-lonestar-1.1.2u4             | Autodock Vina    |
+   | vina-lonestar-1.1.2u3             | Autodock Vina    |
+   | vina-lonestar-1.1.2u2             | Autodock Vina    |
+   | pdb2pdbqt-1.00u1                  | pdb2pdbqt        |
+   +-----------------------------------+------------------+
 
 Public apps will have a revision tag at the end (``u1``, ``u2``, ``u3`` etc.).
-The higher the number, the newest revision.
+The higher the number, the newer the revision.
 
 Search for Applications by Name
 -------------------------------
@@ -52,10 +48,10 @@ Some common searches might include:
    $ tapis apps search --name like imageclassify
 
    # Search for apps that you own
-   $ tapis apps search --owner eq wallen
+   $ tapis apps search --owner eq taccuser
 
    # Search for apps that you don't own (public or shared with you)
-   $ tapis apps search --owner neq wallen
+   $ tapis apps search --owner neq taccuser
 
 
 

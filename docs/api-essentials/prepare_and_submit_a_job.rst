@@ -201,7 +201,6 @@ as a bundle, or a single file:
     +-------------+-------+
 
 
-
 .. note::
 
    The ``--progress`` flag prints progress of the download to STDOUT

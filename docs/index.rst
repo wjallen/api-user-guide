@@ -49,11 +49,6 @@ you are authenticated with one of the tenants. Additional help is located in the
    reactors/create-a-custom-reactor
 
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Tenant-Specific Features:
-
-   tenant-specific-features/continuous-intergration-with-jenkins
 
 
 

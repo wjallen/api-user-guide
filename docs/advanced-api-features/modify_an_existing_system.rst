@@ -1,34 +1,35 @@
 Modify an Existing System
 =========================
 
-Tapis systems are described by ``json`` files and can be added to the tenant
-using the command line interface. To modify a system after it has been added,
-you must edit the original ``json`` file and use the CLI to submit the change.
+Tapis system definitions (written in ``json`` file format) can be added to a
+tenant using the command line interface. To modify a system after it has been
+added, you must edit the original ``json`` file and use the CLI to submit the
+change.
 
 Modify a Storage System
 -----------------------
 
 In a
-`previous section <create_a_private_system.html>`_
+`previous section <create_a_private_system.html>`__
 of this user guide, we registered a new storage system called
-``tacc.work.wallen`` using the following json, which was stored in a file called
-``tacc.work.wallen.json``:
+``tacc.work.taccuser`` using the following ``json``, which was stored in a file
+called ``tacc.work.taccuser.json``:
 
 .. code-block:: json
 
    {
-     "id": "tacc.work.wallen",
-     "name": "Storage system for TACC work directory",
-     "description": "Storage system for TACC work directory via Stampede2",
+     "id": "tacc.work.taccuser",
+     "name": "Storage system for the TACC WORK directory",
+     "description": "Storage system for the TACC WORK directory via Stampede2",
      "type": "STORAGE",
      "storage": {
        "host": "stampede2.tacc.utexas.edu",
        "port": 22,
        "protocol": "SFTP",
-       "rootDir": "/work/03439/wallen",
+       "rootDir": "/work/01234/taccuser",
        "homeDir": "/",
        "auth":{
-         "username":"wallen",
+         "username":"taccuser",
          "publicKey": " <enter public key here> ",
          "privateKey": " <enter private key here> ",
          "type": "SSHKEYS"
@@ -45,31 +46,31 @@ and submit the changes as follows:
 
 .. code-block:: bash
 
-   $ tapis systems update -F tacc.work.wallen.json tacc.work.wallen
-   +----------------------+------------------------------------------------------+
-   | Field                | Value                                                |
-   +----------------------+------------------------------------------------------+
-   | available            | True                                                 |
-   | default              | False                                                |
-   | description          | Storage system for TACC work directory via Stampede2 |
-   | executionType        | None                                                 |
-   | globalDefault        | False                                                |
-   | id                   | tacc.work.wallen                                     |
-   | lastModified         | just now                                             |
-   | maxSystemJobs        | None                                                 |
-   | maxSystemJobsPerUser | None                                                 |
-   | name                 | Storage system for TACC work directory via Stampede2 |
-   | owner                | wallen                                               |
-   | public               | False                                                |
-   | revision             | 2                                                    |
-   | scheduler            | None                                                 |
-   | scratchDir           | None                                                 |
-   | site                 | None                                                 |
-   | status               | UP                                                   |
-   | type                 | STORAGE                                              |
-   | uuid                 | 7043710487649971734-242ac113-0001-006                |
-   | workDir              | None                                                 |
-   +----------------------+------------------------------------------------------+
+   $ tapis systems update -F tacc.work.taccuser.json tacc.work.taccuser
+   +----------------------+----------------------------------------------------------+
+   | Field                | Value                                                    |
+   +----------------------+----------------------------------------------------------+
+   | id                   | tacc.work.taccuser                                       |
+   | name                 | Storage system for the TACC work directory via Stampede2 |
+   | type                 | STORAGE                                                  |
+   | default              | False                                                    |
+   | available            | True                                                     |
+   | description          | Storage system for the TACC WORK directory via Stampede2 |
+   | executionType        | None                                                     |
+   | globalDefault        | False                                                    |
+   | lastModified         | just now                                                 |
+   | maxSystemJobs        | None                                                     |
+   | maxSystemJobsPerUser | None                                                     |
+   | owner                | taccuser                                                 |
+   | public               | False                                                    |
+   | revision             | 2                                                        |
+   | scheduler            | None                                                     |
+   | scratchDir           | None                                                     |
+   | site                 | None                                                     |
+   | status               | UP                                                       |
+   | uuid                 | 383424038079107562-242ac112-0001-006                     |
+   | workDir              | None                                                     |
+   +----------------------+----------------------------------------------------------+
 
 The plain text response should include the new value for the ``name`` parameter.
 You can also use the ``tapis systems history`` command to check that the update
@@ -77,13 +78,14 @@ was accepted:
 
 .. code-block:: bash
 
-   $ tapis systems history tacc.work.wallen
-   +---------+----------------------+-------------------------+
-   | status  | created              | description             |
-   +---------+----------------------+-------------------------+
-   | CREATED | 2020-03-31T01:26:17Z | This system was created |
-   | UPDATED | 2020-03-31T02:43:40Z | This system was updated |
-   +---------+----------------------+-------------------------+
+   $ tapis systems history tacc.work.taccuser
+   +-------------+----------------------+-----------------------------------------------------+
+   | status      | created              | description                                         |
+   +-------------+----------------------+-----------------------------------------------------+
+   | CREATED     | 2020-05-12T04:57:03Z | This system was created                             |
+   | ROLES_GRANT | 2020-05-12T13:16:48Z | User jdoe was granted the role of GUEST by taccuser |
+   | UPDATED     | 2020-05-12T14:09:18Z | This system was updated                             |
+   +-------------+----------------------+-----------------------------------------------------+
 
 
 Modify an Execution System
@@ -94,7 +96,7 @@ In a
 we registered a new execution system for the Stampede2 HPC cluster. In our
 system description, we only included one queue (``normal``), although Stampede2
 has many more queues available. To add an additional queue, return to the
-original json file called ``tacc.stampede2.wallen.json`` and add another json
+original json file called ``tacc.stampede2.taccuser.json`` and add another json
 object to the queue array:
 
 .. code-block::
@@ -127,7 +129,7 @@ Save that new file and update the existing system with the following:
 
 .. code-block:: bash
 
-   $ tapis systems update -F tacc.stampede2.wallen.json tacc.stampede2.wallen
+   $ tapis systems update -F tacc.stampede2.taccuser.json tacc.stampede2.taccuser
    +----------------------+---------------------------------------+
    | Field                | Value                                 |
    +----------------------+---------------------------------------+
@@ -136,16 +138,16 @@ Save that new file and update the existing system with the following:
    | description          | Execution system for TACC Stampede2   |
    | executionType        | HPC                                   |
    | globalDefault        | False                                 |
-   | id                   | tacc.stampede2.wallen                 |
+   | id                   | tacc.stampede2.taccuser               |
    | lastModified         | just now                              |
    | maxSystemJobs        | 2147483647                            |
    | maxSystemJobsPerUser | 50                                    |
    | name                 | Execution system for TACC Stampede2   |
-   | owner                | wallen                                |
+   | owner                | taccuser                              |
    | public               | False                                 |
    | revision             | 2                                     |
    | scheduler            | SLURM                                 |
-   | scratchDir           | /scratch/03439/wallen/                |
+   | scratchDir           | /scratch/01234/taccuser/              |
    | site                 | None                                  |
    | status               | UP                                    |
    | type                 | EXECUTION                             |
@@ -153,7 +155,7 @@ Save that new file and update the existing system with the following:
    | workDir              |                                       |
    +----------------------+---------------------------------------+
 
-   $ tapis systems queues list tacc.stampede2.wallen
+   $ tapis systems queues list tacc.stampede2.taccuser
    +------------+-------------+---------+-------------+------------------+
    | name       | description | default | maxUserJobs | maxRequestedTime |
    +------------+-------------+---------+-------------+------------------+

@@ -4,9 +4,11 @@ Containerize the Executable
 If an image of your executable already exists, and was created by a trusted
 source, consider using that rather than building your own. You may find existing
 images on hubs such as
-`Docker Hub <https://hub.docker.com/>`_
+`Docker Hub <https://hub.docker.com/>`_,
+`BioContainers <https://biocontainers.pro/>`_,
 or
-`BioContainers <https://biocontainers.pro/registry/>`_.
+`Quay.io <https://quay.io/>`_.
+
 
 This tutorial is a quick and dirty summary of how to build your own Docker image
 as if there is not one available for your executable. This is not meant to
@@ -14,7 +16,7 @@ replace the full
 `Docker documentation <https://docs.docker.com/develop/>`_.
 
 We will continue with the example of FastQC from the
-`previous page <initialize_the_app_directory.html>`_.
+`previous page <initialize_the_app_directory.html>`__.
 
 Choose a Source Image
 ---------------------
@@ -159,7 +161,7 @@ build a new Docker image is:
 
 .. code-block:: bash
 
-   $ docker build -f Dockerfile --force-rm -t wallen/fastqc:0.11.9 ./
+   $ docker build -f Dockerfile --force-rm -t taccuser/fastqc:0.11.9 ./
 
 
 Once built, test the new image with an example command:
@@ -212,7 +214,7 @@ namespaced with your Docker ID. Then:
 
 .. code-block:: bash
 
-   $ docker push wallen/fastqc:0.11.9
+   $ docker push taccuser/fastqc:0.11.9
 
 
 Assemble Run Commands
@@ -230,7 +232,7 @@ lines of this file for what should be added:
    if [ -z "${CONTAINER_IMAGE}" ]
    then
        version=$(cat ./_util/VERSION)
-       CONTAINER_IMAGE="index.docker.io/wallen/fastqc:${version}"
+       CONTAINER_IMAGE="index.docker.io/taccuser/fastqc:${version}"
    fi
    . lib/container_exec.sh
 

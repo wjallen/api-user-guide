@@ -19,20 +19,18 @@ test app:
 .. code-block:: bash
 
    $ tapis apps init test_app
-   +----------+--------------------------------+
-   | stage    | message                        |
-   +----------+--------------------------------+
-   | setup    | Project name: test_app         |
-   | setup    | Safened project name: test_app |
-   | setup    | Project path: ./test_app       |
-   | clone    | Project path: ./test_app       |
-   | git-init | Initialized as git repo        |
-   | git-init | Skipped automated first commit |
-   +----------+--------------------------------+
+   +-------+--------------------------------+
+   | stage | message                        |
+   +-------+--------------------------------+
+   | setup | Project name: test_app         |
+   | setup | Safened project name: test_app |
+   | setup | Project path: ./test_app       |
+   | clone | Project path: ./test_app       |
+   +-------+--------------------------------+
 
 
 This will create a new template app folder (in this case, called
-``test_app_1_0/``) with the following form:
+``test_app/``) with the following form:
 
 .. code-block:: bash
 
@@ -73,19 +71,17 @@ flags to indicate the name and version of the app:
 
 .. code-block:: bash
 
-   $ tapis apps init --label fastqc --description "FastQC app"  --version 0.11.9 fastqc_app
-   +----------+----------------------------------+
-   | stage    | message                          |
-   +----------+----------------------------------+
-   | setup    | Project name: fastqc_app         |
-   | setup    | Project description: FastQC app  |
-   | setup    | Project version: 0.11.9          |
-   | setup    | Safened project name: fastqc_app |
-   | setup    | Project path: ./fastqc_app       |
-   | clone    | Project path: ./fastqc_app       |
-   | git-init | Initialized as git repo          |
-   | git-init | Skipped automated first commit   |
-   +----------+----------------------------------+
+   $ tapis apps init --app-label fastqc --app-description "FastQC app" --app-version 0.11.9 fastqc_app
+   +-------+----------------------------------+
+   | stage | message                          |
+   +-------+----------------------------------+
+   | setup | Project name: fastqc_app         |
+   | setup | Project description: FastQC app  |
+   | setup | Project version: 0.11.9          |
+   | setup | Safened project name: fastqc_app |
+   | setup | Project path: ./fastqc_app       |
+   | clone | Project path: ./fastqc_app       |
+   +-------+----------------------------------+
 
    $ tree fastqc_app/
    fastqc_app/
@@ -124,12 +120,12 @@ environment:
    version = 0.11.9
    ; bundle = assets
    ; deployment_path =
-   deployment_system = tacc.work.wallen
-   execution_system = tacc.stampede2.wallen
+   deployment_system = tacc.work.taccuser
+   execution_system = tacc.stampede2.taccuser
 
    [docker]
    dockerfile = Dockerfile
-   namespace = wallen
+   namespace = taccuser
    repo = fastqc_app
    tag = 0.11.9
 
@@ -153,8 +149,8 @@ following:
 
 .. code-block:: bash
 
-   deployment_system = tacc.work.wallen
-   execution_system = tacc.stampede2.wallen
+   deployment_system = tacc.work.taccuser
+   execution_system = tacc.stampede2.taccuser
 
 These should be the names of your private storage and execution systems,
 respectively.
@@ -177,7 +173,7 @@ to expect one input fastq file as shown below:
 
    {
      "checkpointable": false,
-     "name": "{{ app.name }}",
+     "name": "{{ username }}-{{ app.name }}",
      "executionSystem": "{{ app.execution_system }}",
      "executionType": "HPC",
      "deploymentPath": "{{ username }}/apps/{{ app.name }}-{{ app.version }}",
@@ -200,7 +196,7 @@ to expect one input fastq file as shown below:
        {
          "id": "fastq",
          "value": {
-           "default": "agave://tacc.work.wallen/public/SP1.fq",
+           "default": "agave://tacc.work.taccuser/public/SP1.fq",
            "visible": true,
            "required": true
          },
@@ -231,7 +227,7 @@ to expect one input fastq file as shown below:
 
 
 Please refer back to the previous
-`App Documentation <../api-essentials/find_an_application.html>`_
+`App Documentation <../../api-essentials/find_an_application.html>`__
 for a detailed breakdown of a typical app json file.
 
 
@@ -248,7 +244,7 @@ this time is to add the expect input:
      "appId": "{{ app.name }}-{{ app.version}}",
      "archive": false,
      "inputs": {
-       "fastq": "agave://tacc.work.wallen/public/SP1.fq"
+       "fastq": "agave://tacc.work.taccuser/public/SP1.fq"
      },
      "parameters": {}
    }

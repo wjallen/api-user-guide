@@ -31,7 +31,7 @@ you are authenticated with one of the tenants. Additional help is located in the
 
 .. toctree::
    :maxdepth: 1
-   :caption: Advanced API Features:
+   :caption: Advanced API:
 
    advanced-api-features/create_a_private_system
    advanced-api-features/modify_an_existing_system

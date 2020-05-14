@@ -9,7 +9,7 @@ jobs).
 On some tenants, users are provided private storage and execution systems
 attached to TACC resources. If you would like to create your own systems, skip
 ahead to
-`Create a Private System <../advanced-api-features/create_a_private_system.html>`__.
+`Create a Private System <../advanced-api/create_a_private_system.html>`__.
 
 .. warning::
 

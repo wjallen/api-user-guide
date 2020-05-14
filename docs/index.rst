@@ -2,11 +2,11 @@ Tapis CLI How-To Guide
 ======================
 
 The Tapis CLI is python-based tooling for interacting with the
-`Tapis platform. <https://tacc-cloud.readthedocs.io/projects/agave/en/latest/>`_
+`Tapis Platform. <https://tacc-cloud.readthedocs.io/projects/agave/en/latest/>`_
 Below is a series of short guides to accomplishing common tasks with the Tapis
 CLI. Most guides assume you already have the CLI installed and that
 you are authenticated with one of the tenants. Additional help is located in the
-`Tapis CLI reference documentation. <https://tapis-cli.readthedocs.io/en/latest/>`_
+`Tapis CLI Reference Documentation. <https://tapis-cli.readthedocs.io/en/latest/>`_
 
 .. toctree::
    :maxdepth: 1
@@ -45,7 +45,7 @@ you are authenticated with one of the tenants. Additional help is located in the
    :maxdepth: 1
    :caption: Reactors:
 
-   reactors/working-with-reactors
+   reactors/work-with-reactors
    reactors/create-a-custom-reactor
 
 

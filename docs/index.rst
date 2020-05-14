@@ -36,8 +36,8 @@ you are authenticated with one of the tenants. Additional help is located in the
    advanced-api-features/create_a_private_system
    advanced-api-features/modify_an_existing_system
    advanced-api-features/create_a_custom_app
-   advanced-api-features/share_an_app_with_others
    advanced-api-features/modify_an_existing_app
+   advanced-api-features/share_an_app_with_others
    advanced-api-features/set-up-a-workflow
 
 

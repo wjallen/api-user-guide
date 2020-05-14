@@ -26,6 +26,56 @@ At this point, your app bundle directory structure should look similar to:
 The final steps are to deploy the app in to the catalog on the tenant, then run
 a test job to confirm it is working.
 
+Upload Test Data
+----------------
+
+The Tapis app takes FASTQ data as input. Now is a good time to upload some
+sample data to a storage system.
+
+.. code-block:: bash
+
+   # Make a directory for test data
+   $ tapis files mkdir agave://tacc.work.taccuser/ test-data
+   +--------------+---------------------------------------+
+   | Field        | Value                                 |
+   +--------------+---------------------------------------+
+   | name         | test-data                             |
+   | uuid         | 1105399583769563626-242ac112-0001-002 |
+   | owner        | taccuser                              |
+   | path         | /test-data                            |
+   | lastModified | 2020-05-13T18:40:00.027-05:00         |
+   | source       | None                                  |
+   | status       | STAGING_COMPLETED                     |
+   | nativeFormat | dir                                   |
+   | systemId     | tacc.work.taccuser                    |
+   +--------------+---------------------------------------+
+
+   # Upload the SP1.fq file
+   $ tapis files upload agave://tacc.work.taccuser/test-data/ ./test/SP1.fq
+   +-------------------+----------+
+   | Field             | Value    |
+   +-------------------+----------+
+   | uploaded          | 1        |
+   | skipped           | 0        |
+   | messages          | 0        |
+   | bytes_transferred | 21.94 kB |
+   | elapsed_sec       | 3        |
+   +-------------------+----------+
+
+   # Confirm the file exists on the Tapis storage system
+   $ tapis files list agave://tacc.work.taccuser/test-data/
+   +--------+--------------+--------+
+   | name   | lastModified | length |
+   +--------+--------------+--------+
+   | SP1.fq | 1 minute ago |  22471 |
+   +--------+--------------+--------+
+
+The test data can be referenced in future calls to the app as:
+
+.. code-block:: bash
+
+   agave://tacc.work.taccuser/test-data/SP1.fq
+
 
 Deploy the App
 --------------
@@ -110,9 +160,10 @@ create an appropriate ``job.json`` file.
 
 
 Which will output the following json, which can be streamed into a file for
-submission:
+submission (add the highlighted test data line):
 
 .. code-block:: json
+   :emphasize-lines: 11
 
    {
      "name": "taccuser-fastqc_app-job-1589377205989",
@@ -124,7 +175,7 @@ submission:
      "processorsPerNode": 1,
      "archive": false,
      "inputs": {
-       "fastq": "agave://tacc.work.taccuser/public/SP1.fq"
+       "fastq": "agave://tacc.work.taccuser/test-data/SP1.fq"
      },
      "parameters": {},
      "notifications": [

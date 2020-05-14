@@ -196,7 +196,7 @@ to expect one input fastq file as shown below:
        {
          "id": "fastq",
          "value": {
-           "default": "agave://tacc.work.taccuser/public/SP1.fq",
+           "default": "",
            "visible": true,
            "required": true
          },
@@ -244,7 +244,7 @@ this time is to add the expect input:
      "appId": "{{ app.name }}-{{ app.version}}",
      "archive": false,
      "inputs": {
-       "fastq": "agave://tacc.work.taccuser/public/SP1.fq"
+       "fastq": ""
      },
      "parameters": {}
    }

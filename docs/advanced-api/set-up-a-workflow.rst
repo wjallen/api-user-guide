@@ -148,7 +148,7 @@ would like to run FastQC on a series of FASTQ files named: ``fastq_01.fq``,
    fastq_01.fq  fastq_02.fq  fastq_03.fq
 
    # Upload all fastqc files to a storage system
-   $ tapis files upload agave://tacc.work.sd2e0004/test-data/ fastq_data
+   $ tapis files upload agave://tacc.work.taccuser/test-data/ fastq_data
    +-------------------+----------+
    | Field             | Value    |
    +-------------------+----------+
@@ -160,14 +160,14 @@ would like to run FastQC on a series of FASTQ files named: ``fastq_01.fq``,
    +-------------------+----------+
 
    # Create a template json file:
-   $  tapis jobs init --no-archive --no-notify sd2e0004-fastqc_app-0.11.9 > job_template.json
+   $  tapis jobs init --no-archive --no-notify taccuser-fastqc_app-0.11.9 > job_template.json
    $ cat job_template.json
    {
-     "name": "sd2e0004-fastqc_app-job-1589474193147",
-     "appId": "sd2e0004-fastqc_app-0.11.9",
+     "name": "taccuser-fastqc_app-job-1589474193147",
+     "appId": "taccuser-fastqc_app-0.11.9",
      "archive": false,
      "inputs": {
-       "fastq": "agave://tacc.work.sd2e0004/public/SP1.fq"
+       "fastq": "agave://tacc.work.taccuser/public/SP1.fq"
      },
      "parameters": {}
    }
@@ -187,10 +187,10 @@ ob. Here is an example script:
    cat <<EOF >fastqc.json
    {
      "name": "FastQC $FILE",
-     "appId": "sd2e0004-fastqc_app-0.11.9",
+     "appId": "taccuser-fastqc_app-0.11.9",
      "archive": false,
      "inputs": {
-       "fastq": "agave://tacc.work.sd2e0004/test-data/fastq_data/$FILE"
+       "fastq": "agave://tacc.work.taccuser/test-data/fastq_data/$FILE"
      },
      "parameters": {}
    }

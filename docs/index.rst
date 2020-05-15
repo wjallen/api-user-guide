@@ -45,8 +45,8 @@ you are authenticated with one of the tenants. Additional help is located in the
    :maxdepth: 1
    :caption: Actors:
 
-   actors/work-with-actors
-   actors/create-a-custom-actor
+   actors/work_with_actors
+   actors/create_a_custom_actor
 
 
 

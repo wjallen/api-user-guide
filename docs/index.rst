@@ -43,10 +43,10 @@ you are authenticated with one of the tenants. Additional help is located in the
 
 .. toctree::
    :maxdepth: 1
-   :caption: Reactors:
+   :caption: Actors:
 
-   reactors/work-with-reactors
-   reactors/create-a-custom-reactor
+   actors/work-with-actors
+   actors/create-a-custom-actor
 
 
 
